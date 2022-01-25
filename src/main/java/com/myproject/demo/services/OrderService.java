@@ -15,6 +15,10 @@ public class OrderService {
 	@Autowired
 	private OrderRepository userRepository;
 	
+	public void saveAll(List<Order> list) {
+		userRepository.saveAll(list);
+	}
+	
 	public List<Order> findAll(){
 		return userRepository.findAll();
 	}
