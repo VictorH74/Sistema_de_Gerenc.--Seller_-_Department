@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.myproject.demo.entities.Category;
 import com.myproject.demo.entities.Order;
+import com.myproject.demo.entities.Product;
 import com.myproject.demo.entities.User;
 import com.myproject.demo.entities.enums.OrderStatus;
-import com.myproject.demo.repositories.CategoryRepository;
+import com.myproject.demo.services.CategoryService;
 import com.myproject.demo.services.OrderService;
+import com.myproject.demo.services.ProductService;
 import com.myproject.demo.services.UserService;
 
 @Configuration // -> Indicar pro Spring que essa é uma classe especifica de configuração
@@ -25,7 +27,9 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private OrderService orderService;
 	@Autowired
-	private CategoryRepository catRepository;
+	private CategoryService catService;
+	@Autowired
+	private ProductService productService;
 
 	// Tudo que for colocado nesse método vai ser executado quando a aplicação for iniciada
 	@Override
@@ -42,9 +46,16 @@ public class TestConfig implements CommandLineRunner{
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Computers");
 		
+		Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+		Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Marcenas ante.", 2190.0, "");
+		Product p3 = new Product(null, "Mac Book Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+		
 		userService.saveAll(Arrays.asList(u1, u2));
 		orderService.saveAll(Arrays.asList(o1, o2, o3));
-		catRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		catService.saveAll(Arrays.asList(cat1, cat2, cat3));
+		productService.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		
 	}
 }
