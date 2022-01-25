@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "tb_order")//Para o nome dessa entidade não entrar em conflito com a palavra reservada "ORDER" no bando de dados
 public class Order implements Serializable {
@@ -20,6 +22,10 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	// formatar Data
+	// timezone = "GMT" : Time Zone correspondente ao padrão UTC(horário universal de Greenwich, longitude 0)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	
 	@ManyToOne//->Muitos para um

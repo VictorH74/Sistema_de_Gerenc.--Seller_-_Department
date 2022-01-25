@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable{
@@ -25,6 +27,7 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
+	@JsonIgnore//-> Para evitar um looping devido a associação de mão dupla entre Urser e Order
 	@OneToMany(mappedBy = "client")// Nome dado ao atributo do outro lado da associação
 	private List<Order> orders = new ArrayList<>();
 
