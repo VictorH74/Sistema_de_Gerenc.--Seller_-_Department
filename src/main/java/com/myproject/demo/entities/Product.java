@@ -9,8 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
@@ -25,7 +27,11 @@ public class Product implements Serializable{
 	private Double price;
 	private String imgUrl;
 	
-	@Transient//-> Impedir que o JPA tente interpretar esse atributo
+	//@Transient//-> Impedir que o JPA tente interpretar esse atributo
+	@ManyToMany //->Transformar as coleções This.categories e Category.products na tabela de associação no modelo relacional do banco de dados
+	@JoinTable(name = "tb_product_category", //-> Criar uma tabela no banco de dados
+	joinColumns = @JoinColumn(name = "product_id"),//->Inserir uma coluna com chave estrangeira de product
+	inverseJoinColumns = @JoinColumn(name = "category_id"))//->Inserir uma coluna com chave estrangeira da outra entidade (category)
 	private Set<Category> categories = new HashSet<>();
 	
 	public Product() {

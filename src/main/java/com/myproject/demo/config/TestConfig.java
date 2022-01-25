@@ -34,14 +34,6 @@ public class TestConfig implements CommandLineRunner{
 	// Tudo que for colocado nesse método vai ser executado quando a aplicação for iniciada
 	@Override
 	public void run(String... args) throws Exception {
-		User u1 = new User(null, "Victor Almeida", "victorh.almeida7@gmail.com", "999999999", "123456");
-		User u2 = new User(null, "Gabrielly Silva", "gabiiSilva@gmail.com", "999999999", "123456");
-		
-		// Horario no padrão UTC
-		Order o1 = new Order(null, Instant.parse("2022-01-25T13:10:00Z"), OrderStatus.PAID, u1);
-		Order o2 = new Order(null, Instant.parse("2022-01-25T14:20:50Z"), OrderStatus.WAITING_PAYMENT, u2);
-		Order o3 = new Order(null, Instant.parse("2022-01-27T16:35:10Z"), OrderStatus.WAITING_PAYMENT, u1);
-		
 		Category cat1 = new Category(null, "Electronics");
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Computers");
@@ -52,10 +44,27 @@ public class TestConfig implements CommandLineRunner{
 		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
 		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 		
-		userService.saveAll(Arrays.asList(u1, u2));
-		orderService.saveAll(Arrays.asList(o1, o2, o3));
 		catService.saveAll(Arrays.asList(cat1, cat2, cat3));
 		productService.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		
+		p1.getCategories().add(cat2);
+		p2.getCategories().add(cat1);
+		p2.getCategories().add(cat3);
+		p3.getCategories().add(cat3);
+		p4.getCategories().add(cat3);
+		p5.getCategories().add(cat2);
+		
+		productService.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		
+		User u1 = new User(null, "Victor Almeida", "victorh.almeida7@gmail.com", "999999999", "123456");
+		User u2 = new User(null, "Gabrielly Silva", "gabiiSilva@gmail.com", "999999999", "123456");
+		
+		// Horario no padrão UTC
+		Order o1 = new Order(null, Instant.parse("2022-01-25T13:10:00Z"), OrderStatus.PAID, u1);
+		Order o2 = new Order(null, Instant.parse("2022-01-25T14:20:50Z"), OrderStatus.WAITING_PAYMENT, u2);
+		Order o3 = new Order(null, Instant.parse("2022-01-27T16:35:10Z"), OrderStatus.WAITING_PAYMENT, u1);
+		
+		userService.saveAll(Arrays.asList(u1, u2));
+		orderService.saveAll(Arrays.asList(o1, o2, o3));
 	}
 }
