@@ -34,7 +34,7 @@ public class CategoryResource {
 		//ResponseEntity.ok().body(body) -> Para retornar o "corpo" da resposta (body = List<T>/Entity/etc)
 	}
 	
-	@GetMapping(value = "/{id}") //-> Indicar que a request vai aceitar o "id" dentro da URL Ex.: ".../users/7"
+	@GetMapping(value = "/{id}") //-> Indicar que a request vai aceitar o "id" dentro da URL Ex.: ".../categories/7"
 	public ResponseEntity<Category> findById(@PathVariable Long id){
 	//@PathVariable->Para o Spring aceitar e considera-lo como parâmetro da URL
 		
