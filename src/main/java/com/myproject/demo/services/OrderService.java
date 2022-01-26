@@ -27,4 +27,9 @@ public class OrderService {
 		Optional<Order> obj = userRepository.findById(id);
 		return obj.get();
 	}
+
+	public void save(Order o1) {
+		userRepository.save(o1);
+		
+	}
 }
