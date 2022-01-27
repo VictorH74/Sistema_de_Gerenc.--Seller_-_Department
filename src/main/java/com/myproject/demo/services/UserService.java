@@ -19,6 +19,30 @@ public class UserService {
 		userRepository.saveAll(list);
 	}
 	
+	public User insert(User obj) {
+		return userRepository.save(obj);
+	}
+	
+	public User update(Long id, User obj) {
+		User entity = userRepository.getById(id);
+		//->Instanciar um usuario para o objeto "entity" monitorado
+		// para fazer alterações ao objeto diferente do ".findById()"
+		
+		updateData(entity, obj);
+		return userRepository.save(entity);
+	}
+	
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+		
+	}
+
+	public void delete(Long id) {
+		userRepository.deleteById(id);
+	}
+	
 	public List<User> findAll(){
 		return userRepository.findAll();
 	}

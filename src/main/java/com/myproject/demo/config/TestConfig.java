@@ -64,12 +64,14 @@ public class TestConfig implements CommandLineRunner{
 		User u1 = new User(null, "Victor Almeida", "victorh.almeida7@gmail.com", "999999999", "123456");
 		User u2 = new User(null, "Gabrielly Silva", "gabiiSilva@gmail.com", "999999999", "123456");
 		
+		userService.saveAll(Arrays.asList(u1, u2));
+		
 		// Horario no padrão UTC
 		Order o1 = new Order(null, Instant.parse("2022-01-25T13:10:00Z"), OrderStatus.PAID, u1);
 		Order o2 = new Order(null, Instant.parse("2022-01-25T14:20:50Z"), OrderStatus.WAITING_PAYMENT, u2);
 		Order o3 = new Order(null, Instant.parse("2022-01-27T16:35:10Z"), OrderStatus.WAITING_PAYMENT, u1);
 		
-		userService.saveAll(Arrays.asList(u1, u2));
+		
 		orderService.saveAll(Arrays.asList(o1, o2, o3));
 		
 		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
