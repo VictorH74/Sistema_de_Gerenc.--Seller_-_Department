@@ -14,16 +14,14 @@ import com.myproject.demo.services.ProductService;
 // CONTROLADOR REST QUE RESPONDE NO CAMINHO "/users"
 
 // Recurso básico baseado na classe "Product"
-// Classe para testar se o Rest da aplicação Spring boot está funcionando
-@RestController // -> Para indicar que essa classe é um recurso web que é implementado por um controlador Rest
+@RestController // -> Para indicar que essa classe é um controlador Rest
 @RequestMapping(value = "/products") // -> Definir o nome para o Recurso
 public class ProductResource {
 	
 	@Autowired
 	private ProductService service;
 
-	// Metodo para testar esse recurso "users" 
-	@GetMapping // -> Indicar que esse vai ser um método que responde a uma requisição do tipo GET do http
+	@GetMapping //->Indicar que esse vai ser um método request do http / Solicitar algo
 	public ResponseEntity<List<Product>> findAll(){
 	// ResponseEntity<T> -> Tipo especifico do Spring para retornar respostas em requisições web
 		
@@ -36,7 +34,7 @@ public class ProductResource {
 	
 	@GetMapping(value = "/{id}") //-> Indicar que a request vai aceitar o "id" dentro da URL Ex.: ".../products/7"
 	public ResponseEntity<Product> findById(@PathVariable Long id){
-	//@PathVariable->Para o Spring aceitar e considera-lo como parâmetro da URL
+	//@PathVariable->para o parametro ser reconhecido pelo Spring como uma variavel da URL
 		
 		Product obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);

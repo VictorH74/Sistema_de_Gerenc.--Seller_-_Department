@@ -20,15 +20,13 @@ import com.myproject.demo.services.UserService;
 // CONTROLADOR REST QUE RESPONDE NO CAMINHO "/users"
 
 // Recurso básico baseado na classe "User"
-// Classe para testar se o Rest da aplicação Spring boot está funcionando
-@RestController //->Para indicar que essa classe é um recurso web que é implementado por um controlador Rest
+@RestController //->Para indicar que essa classe é um controlador Rest
 @RequestMapping(value = "/users")//-> Definir o nome para o Recurso
 public class UserResource {
 	
 	@Autowired
 	private UserService service;
 
-	// Metodo para testar esse recurso "users" 
 	@GetMapping //->Indicar que esse vai ser um método request do http / Solicitar algo
 	public ResponseEntity<List<User>> findAll(){
 	// ResponseEntity<T> -> Tipo especifico do Spring para retornar respostas em requisições web
@@ -64,7 +62,6 @@ public class UserResource {
 	
 	@DeleteMapping(value = "/{id}") //->Metodo HTTP para deletar no padrão Rest
 	public ResponseEntity<Void> delete(@PathVariable Long id){
-	//@PathVariable->para o parametro ser reconhecido pelo Spring como uma variavel da URL
 		
 		service.delete(id);
 		return ResponseEntity.noContent().build();

@@ -3,11 +3,17 @@ package com.myproject.demo.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.myproject.demo.entities.User;
 import com.myproject.demo.repositories.UserRepository;
+import com.myproject.demo.services.exceptions.DatabaseException;
+import com.myproject.demo.services.exceptions.ResourceNotFoundException;
 //@Component -> Super de @Service
 @Service//->Para que essa classe seja injetado pelo mencanismo de injeção de dependencia do Spring (@Autowired)
 public class UserService {
@@ -24,12 +30,16 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
-		User entity = userRepository.getById(id);
-		//->Instanciar um usuario para o objeto "entity" monitorado
-		// para fazer alterações ao objeto diferente do ".findById()"
-		
-		updateData(entity, obj);
-		return userRepository.save(entity);
+		try {
+			User entity = userRepository.getById(id);
+			//->Instanciar um usuario para o objeto "entity" monitorado
+			// para fazer alterações ao objeto diferente do ".findById()"
+			
+			updateData(entity, obj);
+			return userRepository.save(entity);
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 	
 	private void updateData(User entity, User obj) {
@@ -40,7 +50,14 @@ public class UserService {
 	}
 
 	public void delete(Long id) {
-		userRepository.deleteById(id);
+		try {
+			userRepository.deleteById(id);
+		}catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+			
+		}catch(DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 	
 	public List<User> findAll(){
@@ -48,7 +65,10 @@ public class UserService {
 	}
 	
 	public User findById(Long id) {
+		
 		Optional<User> obj = userRepository.findById(id);
-		return obj.get();
+		
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		//".orElseThrow()" tentar da o ".get()" do obj. Se não tiver nenhum objeto do tipo "User", irá lançar a exception definida como parametro
 	}
 }
