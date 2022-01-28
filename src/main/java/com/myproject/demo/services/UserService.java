@@ -19,24 +19,24 @@ import com.myproject.demo.services.exceptions.ResourceNotFoundException;
 public class UserService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository repository;
 	
 	public void saveAll(List<User> list) {
-		userRepository.saveAll(list);
+		repository.saveAll(list);
 	}
 	
 	public User insert(User obj) {
-		return userRepository.save(obj);
+		return repository.save(obj);
 	}
 	
 	public User update(Long id, User obj) {
 		try {
-			User entity = userRepository.getById(id);
+			User entity = repository.getById(id);
 			//->Instanciar um usuario para o objeto "entity" monitorado
 			// para fazer alterações ao objeto diferente do ".findById()"
 			
 			updateData(entity, obj);
-			return userRepository.save(entity);
+			return repository.save(entity);
 		}catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
@@ -51,7 +51,7 @@ public class UserService {
 
 	public void delete(Long id) {
 		try {
-			userRepository.deleteById(id);
+			repository.deleteById(id);
 		}catch(EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(id);
 			
@@ -61,12 +61,12 @@ public class UserService {
 	}
 	
 	public List<User> findAll(){
-		return userRepository.findAll();
+		return repository.findAll();
 	}
 	
 	public User findById(Long id) {
 		
-		Optional<User> obj = userRepository.findById(id);
+		Optional<User> obj = repository.findById(id);
 		
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		//".orElseThrow()" tentar da o ".get()" do obj. Se não tiver nenhum objeto do tipo "User", irá lançar a exception definida como parametro

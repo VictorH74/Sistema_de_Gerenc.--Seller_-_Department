@@ -48,7 +48,7 @@ public class UserResource {
 	
 	@PostMapping()//->Indicar que esse vai ser um método para inserir algo do http
 	public ResponseEntity<User> insert(@RequestBody User obj){
-		//@RequestBody-> Indicar que o User obj vai chegar no modo Json na hora da requisição e vai ser deserializado para um obj User
+		//@RequestBody-> Indicar que o User obj vai chegar em formato Json na hora da requisição e vai ser deserializado para um obj User
 		
 		obj = service.insert(obj);
 		

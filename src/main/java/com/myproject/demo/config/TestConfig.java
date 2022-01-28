@@ -50,7 +50,7 @@ public class TestConfig implements CommandLineRunner{
 		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 		
 		catService.saveAll(Arrays.asList(cat1, cat2, cat3));
-		productService.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+//		productService.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		
 		p1.getCategories().add(cat2);
 		p2.getCategories().add(cat1);
