@@ -57,7 +57,16 @@ public class UserResource {
 	public ResponseEntity<User> insert(@RequestBody User obj){
 		//@RequestBody-> Indicar que o User obj vai chegar em formato Json na hora da requisição e vai ser deserializado para um obj User
 		
-		obj = service.insert(obj);
+		if(obj.getId() != null) {
+			
+			if(obj.getId() >= 0) {
+				service.update(obj.getId(), obj);
+			}else
+				obj.setId(null);
+		}
+		if(obj.getId() == null)
+			obj = service.insert(obj);
+		
 		
 		//URI location / Endereço do novo recurso(obj) inserido
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
