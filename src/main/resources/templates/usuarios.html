@@ -12,16 +12,24 @@
             right: 30px;
             position: absolute;
             font-size: 1.8em;
-            bottom: 10px;
-            
+            bottom: 0;
+            height: 80px;
         }
         nav ul li{
-            display: inline-block;
+            display: inline-flex;
             list-style: none;
+            margin-left: 0.5em;
+            text-align: center;
         }
         nav ul li a{
             margin-left: 5px;
             text-decoration: none;
+            transition: 200ms;
+            line-height: 80px;
+           
+        }
+        nav ul li a:hover{
+            font-size: 35px;
         }
 
         header{
@@ -36,7 +44,16 @@
             margin-left: 25px;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
-        #sobre{
+
+        .modal-padrao{
+            height: 300px;
+            width: 500px;
+            position: relative;
+            margin: 10em auto;
+            border-radius: 12px;
+            background-color: #fff; 
+        }
+        .modal-c{
             position: fixed;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             top: 0;
@@ -49,27 +66,23 @@
             pointer-events: none;
         }
 
-        #sobre:target{
+        .modal-c:target{
             display: block;
             opacity: 1;
             pointer-events: auto;
-            transition: opacity 400ms ease-in;
+            transition: opacity 200ms ease-in;
         }
 
-        #sobre-div{
-            height: 300px;
-            width: 500px;
-            position: relative;
-            margin:  10% auto;
-            border-radius: 12px;
-            background-color: #fff;  
-        }
         #sobre-div div{
-            clear: both;
+            margin: 20px 20px;
+        }
+        #nada-div div{
             margin: 20px 20px;
         }
 
         #sobre p{margin-top: 5%; margin-bottom: 5%;}
+
+        
         
         .close{
             margin: 5px 15px 20px 0;
@@ -83,7 +96,7 @@
             clear: both;
         }
 
-        .close:hover{color: #b50909; transition: 1s;}
+        .close:hover{color: #b50909; transition: 200ms;}
 
         #form-div{
             position: absolute;
@@ -104,6 +117,7 @@
             width: 16.5em;
             margin-bottom: 1.8em;
             border-radius: 8px;
+            outline: none;
         }
         form input:focus, form input:valid{
             background-color: rgb(179, 179, 179);
@@ -142,12 +156,13 @@
             background-color: rgb(201, 201, 201);
             width: 100%;
             height: 65px;
-            margin-bottom: 20px;
+            margin-bottom: 1.8em;
             border-radius: 15px;
             box-shadow: 3px 3px 6px;
         }
         #menu-db input:hover{
             background-color: rgb(160, 160, 160);
+            transform: translateY(3px);
         }
         #menu-db a{
             font-size: 20px;
@@ -200,11 +215,11 @@
 
             <div id="menu-db">
                 <a href="users/list"><input type="button" value="Lista Usuários"></a>
-                <a href="#"><input type="button" value="Nada"></a>
+                <a href="#nada"><input type="button" value="Nada"></a>
             </div>
 
-            <div id="sobre">
-                <div id="sobre-div">
+            <div id="sobre" class="modal-c">
+                <div id="sobre-div" class="modal-padrao">
                     <a href="" title="Close" class="close">X</a>
                     <hr>
                     <div>
@@ -213,6 +228,17 @@
                     </div>
                     
                 </div>   
+            </div>
+
+            <div id="nada" class="modal-c">
+                <div id="nada-div" class="modal-padrao">
+                    <a href="" title="Close" class="close">X</a>
+                    <hr>
+                    <div>
+                        <h1>Nada!</h1>
+                        <p>Nada</p>
+                    </div>
+                </div>
             </div>
 
             <footer>
