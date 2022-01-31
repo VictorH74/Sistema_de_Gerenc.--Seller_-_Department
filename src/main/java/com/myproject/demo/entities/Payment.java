@@ -26,7 +26,7 @@ private static final long serialVersionUID = 1L;
 	
 	@JsonIgnore
 	@OneToOne
-	@MapsId//-> Devido a essa classe ser dependente da classe "Order"
+	@MapsId//-> INDICAR QUE ESSA CLASSE SER DEPENDENTE DE "Order"
 	private Order order;
 	
 	public Payment() {

@@ -10,16 +10,16 @@ import javax.persistence.ManyToOne;
 import com.myproject.demo.entities.Order;
 import com.myproject.demo.entities.Product;
 
-@Embeddable//-> Para classe auxiliar de chave-primária(PK) composta
+@Embeddable//-> CLASSE AUXILIAR DE CHAVE-PRIMARIA(PK) COMPOSTA
 public class OrderItemPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
-	@JoinColumn(name = "order_id")
-	private Order order;//->Referência para o pedido
+	@JoinColumn(name = "order_id")//-> CRIAR COLUNA PARA ARMAZENAR CHAVE DE "Order"
+	private Order order;
 	@ManyToOne
 	@JoinColumn(name = "product_id")
-	private Product product;//->Referência para o produto
+	private Product product;//-> CRIAR COLUNA PARA ARMAZENAR CHAVE DE "Product"
 	
 	public Order getOrder() {
 		return order;

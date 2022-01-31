@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.myproject.demo.entities.User;
@@ -26,8 +28,13 @@ public class UserResource {
 	
 	@Autowired
 	private UserService service;
+	
+	@GetMapping
+	public ModelAndView index(){
+		return new ModelAndView("usuarios");
+	}
 
-	@GetMapping //->Indicar que esse vai ser um método request do http / Solicitar algo
+	@GetMapping(value = "/list") //->Indicar que esse vai ser um método request do http / Solicitar algo
 	public ResponseEntity<List<User>> findAll(){
 	// ResponseEntity<T> -> Tipo especifico do Spring para retornar respostas em requisições web
 		
@@ -46,7 +53,7 @@ public class UserResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PostMapping()//->Indicar que esse vai ser um método para inserir algo do http
+	@PostMapping(value = "salvar")//->Indicar que esse vai ser um método para inserir algo do http
 	public ResponseEntity<User> insert(@RequestBody User obj){
 		//@RequestBody-> Indicar que o User obj vai chegar em formato Json na hora da requisição e vai ser deserializado para um obj User
 		
