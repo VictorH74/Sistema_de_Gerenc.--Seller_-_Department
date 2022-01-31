@@ -5,6 +5,9 @@
     <title>Pagina de Usuários</title>
     <style>
 
+        *{
+            box-sizing: border-box;
+        }
         nav{
             right: 30px;
             position: absolute;
@@ -91,15 +94,31 @@
         }
         
         form{
-            margin: 10px 0px 0px 15px;
+            position: absolute;
+            margin: 10px 0px 0px 5em;
         }
         form input{
+        	border: none;
             box-shadow: 2px 2px 8px;
+            height: 2.1em;
+            width: 16.5em;
+            margin-bottom: 1.8em;
+            border-radius: 8px;
+        }
+        form input:focus, form input:valid{
+            background-color: rgb(179, 179, 179);
+        }
+        form h2{
+            padding-bottom: 1em;
+        }
+        #id{
+            background-color: rgb(105, 105, 105);
+            
         }
         #buttons-form{
             position: absolute;
-            left: 96px;
-            bottom: 230px;
+            top: 32em;
+            left: 5em;
         }
         #buttons-form button{
             margin: 5px 5px 0 0;
@@ -118,6 +137,7 @@
         }
 
         #menu-db input{
+        	border: none;
             transition: 400ms;
             background-color: rgb(201, 201, 201);
             width: 100%;
@@ -160,29 +180,16 @@
 
             <div id="form-div">
                 <form id="formCadastroUser" action="" method="post">
+                    <h2>Cadastrar Usuário</h2>
+                    <input type="text" form="form-control" id="id" readonly="readonly" placeholder="  ID">
 
-                    <table>
-                        <tr>
-                            <td><label for="id" class="form-label">ID</label></td>
-                            <td><input type="text" form="form-control" id="id" readonly="readonly"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="name" class="form-label">Nome</label></td>
-                            <td><input type="text" form="form-control" id="name" required ></td>
-                        </tr>
-                        <tr>
-                            <td><label for="email" class="form-label">E-mail</label</td>
-                            <td><input type="email" form="form-control" id="email" required></td>
-                        </tr>
-                        <tr>
-                            <td><label for="phone" class="form-label">Telefone</label></td>
-                            <td><input type="text" form="form-control" id="phone" required></td>
-                        </tr>
-                        <tr>
-                            <td><label for="password" class="form-label">Senha</label></td>
-                            <td><input type="text" form="form-control" id="password" required></td>
-                        </tr>
-                    </table>
+                    <input type="text" form="form-control" id="name" required placeholder="  Nome">
+
+                    <input type="email" form="form-control" id="email" required placeholder="  E-mail">
+
+                    <input type="text" form="form-control" id="phone" required placeholder="  Telefone">
+
+                    <input type="text" form="form-control" id="password" required placeholder="  Senha">
                 </form>
             </div>
 
@@ -224,25 +231,32 @@
                 var phone = $("#phone").val();
                 var password = $("#password").val();
 
-                $.ajax({
+                if(name == "" || email == "" || phone == "" || password == "" ){
+                    alert("Campos (Nome, E-mail, Telefone, Senha) devem ser prenchidos!")
+                    
+                }else{
+                    $.ajax({
 
-                    method: "POST",
+                        method: "POST",
 
-                    url: "users/salvar",
+                        url: "users/salvar",
 
-                    data: JSON.stringify({id : id, name : name, email : email, phone : phone, password : password}),
+                        data: JSON.stringify({id : id, name : name, email : email, phone : phone, password : password}),
 
-                    contentType: "application/json; charset=utf-8",
+                        contentType: "application/json; charset=utf-8",
 
-                    success: function (response){
-                        
-                        $("#id").val(response.id);
-                        alert("Gravado com sucesso!");
-                    }
+                        success: function (response){
+                            
+                            $("#id").val(response.id);
+                            alert("Gravado com sucesso!");
+                        }
 
-                }).fail(function (xhr, status, errorThrow) {
-                    alert("Erro ao salvar usuário: " + xhr.responseText);
-                });
+                    }).fail(function (xhr, status, errorThrow) {
+                        alert("Erro ao salvar usuário: " + xhr.responseText);
+                    });
+                }
+
+                
             }
         </script>
 
