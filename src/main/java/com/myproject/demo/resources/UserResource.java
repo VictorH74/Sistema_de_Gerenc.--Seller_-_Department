@@ -4,8 +4,8 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,29 +13,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.myproject.demo.entities.User;
 import com.myproject.demo.services.UserService;
 // CONTROLADOR REST QUE RESPONDE NO CAMINHO "/users"
 
+
+
 // Recurso básico baseado na classe "User"
-@RestController //->Para indicar que essa classe é um controlador Rest
-@RequestMapping(value = "/users")//-> Definir o nome para o Recurso
+@Controller //->Para indicar que essa classe é um controlador Rest
+@RequestMapping("/users")//-> Definir o nome para o Recurso
 public class UserResource {
-	
 	@Autowired
 	private UserService service;
 	
+//	@GetMapping
+//	public ModelAndView index(){
+//		return new ModelAndView("usuarios");
+//	}
 	@GetMapping
-	public ModelAndView index(){
-		return new ModelAndView("usuarios");
+	public String getUsers() {
+		return "usuarios";
 	}
 
-	@GetMapping(value = "/list") //->Indicar que esse vai ser um método request do http / Solicitar algo
-	public ResponseEntity<List<User>> findAll(){
+	@GetMapping(value = "listarTodos") //->Indicar que esse vai ser um método request do http / Solicitar algo
+	@ResponseBody
+	public ResponseEntity<List<User>> listarTodos(){
 	// ResponseEntity<T> -> Tipo especifico do Spring para retornar respostas em requisições web
 		
 		List<User> list = service.findAll();
@@ -67,7 +73,6 @@ public class UserResource {
 		if(obj.getId() == null)
 			obj = service.insert(obj);
 		
-		
 		//URI location / Endereço do novo recurso(obj) inserido
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -76,10 +81,10 @@ public class UserResource {
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
-	@DeleteMapping(value = "/{id}") //->Metodo HTTP para deletar no padrão Rest
-	public ResponseEntity<Void> delete(@PathVariable Long id){
+	@DeleteMapping(value = "excluir") //->Metodo HTTP para deletar no padrão Rest
+	public ResponseEntity<Void> delete(@RequestBody User obj){
 		
-		service.delete(id);
+		service.delete(obj.getId());
 		return ResponseEntity.noContent().build();
 			// ResponseEntity.noContent()-> Resposta sem corpo(body)
 			// Codigo http de uma resposta sem conteudo: 204 OK
