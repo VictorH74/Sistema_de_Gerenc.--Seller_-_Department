@@ -1,7 +1,9 @@
 package com.myproject.demo.config;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -64,6 +66,20 @@ public class TestConfig implements CommandLineRunner{
 		User u1 = new User(null, "Victor Almeida", "victorh.almeida7@gmail.com", "999999999", "123456");
 		User u2 = new User(null, "Gabrielly Silva", "gabiiSilva@gmail.com", "999999999", "123456");
 		
+		String strEmail = "@teste";
+		List<User> list = new ArrayList<>();
+		
+		for(int i=0; i<25; i++) {
+			String str = "teste";
+			str += String.valueOf(i);
+			String email = str + strEmail;
+			String telefone = "99999999999";
+			String senha = "teste1234567";
+			User u = new User(null, str, email, telefone, senha);
+			list.add(u);
+		}
+		
+		userService.saveAll(list);
 		userService.saveAll(Arrays.asList(u1, u2));
 		
 		// Horario no padrão UTC

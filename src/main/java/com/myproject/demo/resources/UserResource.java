@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,8 +52,8 @@ public class UserResource {
 		//ResponseEntity.ok().body(body) -> Para retornar o "corpo" da resposta (body = List<T>/Entity/etc)
 	}
 	
-	@GetMapping(value = "/{id}")//->Indicar que a request vai aceitar o "id" dentro da URL Ex.: ".../users/7"
-	public ResponseEntity<User> findById(@PathVariable Long id){
+	@GetMapping("encontrarPorId")//->Indicar que a request vai aceitar o "id" dentro da URL Ex.: ".../users/7"
+	public ResponseEntity<User> findById(@RequestParam(name = "id") Long id){
 	//@PathVariable->para o parametro ser reconhecido pelo Spring como uma variavel da URL
 		
 		User obj = service.findById(id);
@@ -82,10 +83,11 @@ public class UserResource {
 	}
 	
 	@DeleteMapping(value = "excluir") //->Metodo HTTP para deletar no padrão Rest
-	public ResponseEntity<Void> delete(@RequestBody User obj){
+	@ResponseBody//-> Descrição da responsta
+	public ResponseEntity<String> delete(@RequestParam(name = "id") Long id){
 		
-		service.delete(obj.getId());
-		return ResponseEntity.noContent().build();
+		service.delete(id);
+		return new ResponseEntity<String>("Usuário Deletado!", HttpStatus.OK);
 			// ResponseEntity.noContent()-> Resposta sem corpo(body)
 			// Codigo http de uma resposta sem conteudo: 204 OK
 	}
