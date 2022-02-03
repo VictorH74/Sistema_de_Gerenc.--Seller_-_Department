@@ -56,8 +56,7 @@
 
 		<div id="listar-usuarios" class="modal-c">
 			<div id="lista-div">
-				<a href="#" onclick="closeModal()" title="Close" class="close">X</a>
-				<hr>
+				<input id="bt-close" type="button" onclick="closeModal()" value="X" >
 				<div>
 					<table class="table" id="tabela-result">
 						<thead>

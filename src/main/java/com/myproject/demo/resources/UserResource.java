@@ -40,7 +40,7 @@ public class UserResource {
 		return "usuarios";
 	}
 
-	@GetMapping(value = "listarTodos") //->Indicar que esse vai ser um método request do http / Solicitar algo
+	@GetMapping(value = "/listarTodos") //->Indicar que esse vai ser um método request do http / Solicitar algo
 	@ResponseBody
 	public ResponseEntity<List<User>> listarTodos(){
 	// ResponseEntity<T> -> Tipo especifico do Spring para retornar respostas em requisições web
@@ -52,7 +52,7 @@ public class UserResource {
 		//ResponseEntity.ok().body(body) -> Para retornar o "corpo" da resposta (body = List<T>/Entity/etc)
 	}
 	
-	@GetMapping("encontrarPorId")//->Indicar que a request vai aceitar o "id" dentro da URL Ex.: ".../users/7"
+	@GetMapping("/encontrarPorId")//->Indicar que a request vai aceitar o "id" dentro da URL Ex.: ".../users/7"
 	public ResponseEntity<User> findById(@RequestParam(name = "id") Long id){
 	//@PathVariable->para o parametro ser reconhecido pelo Spring como uma variavel da URL
 		
@@ -60,7 +60,7 @@ public class UserResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PostMapping(value = "salvar")//->Indicar que esse vai ser um método para inserir algo do http
+	@PostMapping(value = "/salvar")//->Indicar que esse vai ser um método para inserir algo do http
 	public ResponseEntity<User> insert(@RequestBody User obj){
 		//@RequestBody-> Indicar que o User obj vai chegar em formato Json na hora da requisição e vai ser deserializado para um obj User
 		
@@ -82,7 +82,7 @@ public class UserResource {
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
-	@DeleteMapping(value = "excluir") //->Metodo HTTP para deletar no padrão Rest
+	@DeleteMapping(value = "/excluir") //->Metodo HTTP para deletar no padrão Rest
 	@ResponseBody//-> Descrição da responsta
 	public ResponseEntity<String> delete(@RequestParam(name = "id") Long id){
 		
