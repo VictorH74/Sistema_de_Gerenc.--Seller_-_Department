@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Pagina de Usuários</title>
+<title>Pagina de Categorias</title>
 <link rel="stylesheet" type="text/css" href="/css/entidades.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -18,39 +18,36 @@
 	<main>
 		<header>
 			<div>
-				<h1>Usuários | VH</h1>
+				<h1>Categorias | VH</h1>
 			</div>
 
 			<nav>
 				<ul>
 					<li><a href="/">Home</a></li>
-					<li><a href="#usuarios">Usuários</a></li>
+					<li><a href="/users">Usuários</a></li>
 					<li><a href="/orders">Pedidos</a></li>
 					<li><a href="/products">Produtos</a></li>
-					<li><a href="/categories">Categorias</a></li>
+					<li><a href="#categories">Categorias</a></li>
 					<li><a href="#sobre">Sobre</a></li>
 				</ul>
 			</nav>
 		</header>
 
 		<div id="form-div">
-			<form id="formCadastroUser" action="" method="post">
-				<h2 id="titulo-form">Cadastrar Usuário</h2>
+			<form id="formCadastroCat" action="" method="post">
+				<h2 id="titulo-form">Nova Categoria</h2>
 				<input type="text" form="form-control" id="id" readonly="readonly"placeholder="  ID"> 
 				<input type="text" form="form-control" id="name" required placeholder="  Nome"> 
-				<input type="email" form="form-control" id="email" required placeholder="  E-mail"> 
-				<input type="text" form="form-control" id="phone" required placeholder="  Telefone">
-				<input type="text" form="form-control" id="password" required placeholder="  Senha">
 					
 				<div id="buttons-form">
-					<button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
+					<button type="button" class="btn btn-primary" onclick="salvarCategoria()">Salvar</button>
 					<button id="novo" type="button" class="btn btn-secondary" onclick="limparForm()">Limpar</button>
 				</div>
 			</form>
 		</div>
 
 		<div id="menu-db">
-			<input id="bt-listar" type="button" value="Listar Usuários" onclick="clickListarTodos()"> 
+			<input id="bt-listar" type="button" value="Listar Categorias" onclick="clickListarTodos()"> 
 			<a href="#nada"><input type="button" value="Nada"></a>
 		</div>
 
@@ -63,9 +60,6 @@
 							<tr>
 								<th scope="col">ID</th>
 								<th scope="col">Nome</th>
-								<th scope="col">E-mail</th>
-								<th scope="col">Telefone</th>
-								<th scope="col">Senha</th>
 								<th scope="col">Editar</th>
 							</tr>
 						</thead>
@@ -109,10 +103,8 @@
 		function limparForm(){
 			$("#id").val("");
 			$("#name").val("");
-			$("#email").val("");
-			$("#phone").val("");
-			$("#password").val("");
-			document.getElementById('titulo-form').innerText = ' Cadastrar Usuário';
+			
+			document.getElementById('titulo-form').innerText = ' Nova Categoria';
 			document.getElementById('titulo-form').style.color= 'black';
 		}
 		function closeModal() {
@@ -138,34 +130,28 @@
 		crossorigin="anonymous"></script>
 		
 	<script type="text/javascript">
-		function salvarUsuario() {
+		function salvarCategoria() {
 			
 			var id = $("#id").val();
 			var name = $("#name").val();
-			var email = $("#email").val();
-			var phone = $("#phone").val();
-			var password = $("#password").val();
 			
 			if(id != null)
-				document.getElementById('titulo-form').innerText = ' Cadastrar Usuário';
+				document.getElementById('titulo-form').innerText = ' Nova Categoria';
 			document.getElementById('titulo-form').style.color= 'black';
 
-			if (name == "" || email == "" || phone == "" || password == "") {
-				alert("Campos (Nome, E-mail, Telefone, Senha) devem ser preenchidos!")
+			if (name == "") {
+				alert("Campo (Nome) devem ser preenchidos!")
 
 			} else {
 				$.ajax({
 
 					method : "POST",
 
-					url : "users/salvar",
+					url : "categories/salvar",
 
 					data : JSON.stringify({
 						id : id,
-						name : name,
-						email : email,
-						phone : phone,
-						password : password
+						name : name
 					}),
 
 					contentType : "application/json; charset=utf-8",
@@ -173,35 +159,34 @@
 					success : function(response) {
 
 						$("#id").val(response.id);
-						alert("Usuário salvo com sucesso!");
+						alert("Categoria salvo com sucesso!");
 					}
 
 				}).fail(function(xhr, status, errorThrow) {
-					alert("Erro ao salvar usuário: " + xhr.responseText);
+					alert("Erro ao salvar categoria: " + xhr.responseText);
 				});
 			}
 
 		}
 
-		function excluirUsuario(id) {
+		function excluirCategoria(id) {
 			$.ajax({
 				method : "DELETE",
-				url : "users/excluir",
+				url : "categories/excluir",
 				data : "id=" + id,
 				success : function(response) {
-					alert(response);
 					listarTodos();
 				}
 			}).fail(function(xhr, status, errorThrow) {
-				alert("Erro ao excluir usuário: " + xhr.responseText);
+				alert("Erro ao excluir categoria: " + xhr.responseText);
 			});
 
 		}
 		
-		function editarUsuario(id){
+		function editarCategoria(id){
 			$.ajax({
 				method : "GET",
-				url : "users/encontrarPorId",
+				url : "categories/encontrarPorId",
 				data : "id=" + id,
 				success : function(response) {
 					document.getElementById('titulo-form').innerText = ' Alterar Dados';
@@ -209,14 +194,11 @@
 					
 					$("#id").val(response.id);
 					$("#name").val(response.name);
-					$("#email").val(response.email);
-					$("#phone").val(response.phone);
-					$("#password").val(response.password);
 					
 					closeModal();
 				}
 			}).fail(function(xhr, status, errorThrow) {
-				alert("Erro ao salvar usuário: " + xhr.responseText);
+				alert("Erro ao salvar categoria: " + xhr.responseText);
 			});
 		}
 		
@@ -225,7 +207,7 @@
 
 					method : "GET",
 
-					url : "users/listarTodos",
+					url : "categories/listarTodos",
 
 					success : function(response) {
 
@@ -236,13 +218,10 @@
 								'<tr>'
 										+ '<td>'+ response[i].id+ '</td>'
 										+ '<td>'+ response[i].name +'</td>'
-										+ '<td>'+ response[i].email +'</td>'
-										+ '<td>'+ response[i].phone +'</td>'
-										+ '<td>'+ response[i].password +'</td>'
 										+ '<td>'
 											+'<div class="bt-table">'
-												+'<button class="btn btn-primary" onclick="editarUsuario('+ response[i].id +')">Editar</button>'
-												+'<button class="btn btn-primary" id="bt-excluir" onclick="excluirUsuario('+ response[i].id +')">Excluir</button>'
+												+'<button class="btn btn-primary" onclick="editarCategoria('+ response[i].id +')">Editar</button>'
+												+'<button class="btn btn-primary" id="bt-excluir" onclick="excluirCategoria('+ response[i].id +')">Excluir</button>'
 											+'</div>'
 										+'</td>'
 								+'</tr>');
@@ -250,7 +229,7 @@
 					}
 
 					}).fail(function(xhr, status, errorThrow) {
-							alert("Erro ao listar usuários: " + xhr.responseText);
+							alert("Erro ao listar categorias: " + xhr.responseText);
 						});
 		}
 	</script>

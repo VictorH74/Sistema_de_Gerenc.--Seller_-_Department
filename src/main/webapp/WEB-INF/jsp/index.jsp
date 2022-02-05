@@ -22,7 +22,10 @@
                     <ul>
                         <li><a href="#Home">Home</a></li>
                         <li><a href="users">Usuários</a></li>
-                        <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="/orders">Pedidos</a></li>
+						<li><a href="/products">Produtos</a></li>
+						<li><a href="/categories">Categorias</a></li>
+						<li><a href="#sobre">Sobre</a></li>
                     </ul>
                 </nav>
             </header>

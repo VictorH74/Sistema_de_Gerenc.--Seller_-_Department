@@ -42,7 +42,6 @@ header h1{
 nav{
     right: 30px;
     position: absolute;
-    font-size: 1.8em;
     bottom: 0;
     height: 80px;
 }
@@ -57,9 +56,10 @@ nav ul li a{
     text-decoration: none;
     transition: 200ms;
     line-height: 80px;
+    font-size: 1.6em;
    
 }
-nav ul li a:hover{font-size: 35px;}
+nav ul li a:hover{font-size: 1.7em;}
 
 #form-div{
     position: absolute;
@@ -79,8 +79,16 @@ form input{
     width: 16.5em;
     margin-bottom: 1.8em;
     border-radius: 8px;
-    outline: none;
 }
+form select{
+	height: 2.1em;
+	width: 15.2em;
+	box-shadow: 3px 3px 8px;
+	margin-bottom: 1.8em;
+	border-radius: 8px;
+	color: #292929;}
+form option{width: 15.2em;}
+
 form input:focus, form input:valid{
     background-color: rgb(179, 179, 179);
 }
@@ -91,9 +99,7 @@ form h2{
     background-color: rgb(105, 105, 105);  
 }
 #buttons-form{
-    position: absolute;
-    top: 32em;
-    left: 5em;
+	margin: 0.3em 0;
 }
 #buttons-form button{
     margin: 5px 5px 0 0;
@@ -164,7 +170,7 @@ form h2{
 }
 .close:hover{color: #b50909; transition: 200ms;}
 
-#listar-usuarios{top:20px; bottom:-20px}
+#lista-modal{top:20px; bottom:-20px}
 #lista-div{
 	position: absolute;
 	margin-left: 20px;

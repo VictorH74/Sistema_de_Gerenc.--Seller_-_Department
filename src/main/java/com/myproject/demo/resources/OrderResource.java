@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.myproject.demo.entities.Order;
@@ -20,16 +20,21 @@ import com.myproject.demo.services.OrderService;
 // CONTROLADOR REST QUE RESPONDE NO CAMINHO "/users"
 
 // Recurso básico baseado na classe "Order"
-@RestController // -> Para indicar que essa classe é um controlador Rest
+@Controller // -> Para indicar que essa classe é um controlador Rest
 @RequestMapping(value = "/orders") // -> Definir o nome para o Recurso
 public class OrderResource {
 	
 	@Autowired
 	private OrderService service;
+	
+	@GetMapping
+	public String pedidos() {
+		return "pedidos";
+	}
 
 	// Metodo para testar esse recurso "users" 
-	@GetMapping//->Indicar que esse vai ser um método request do http / Solicitar algo
-	public ResponseEntity<List<Order>> findAll(){
+	@GetMapping(value = "listarTodos")//->Indicar que esse vai ser um método request do http / Solicitar algo
+	public ResponseEntity<List<Order>> listarTodos(){
 	// ResponseEntity<T> -> Tipo especifico do Spring para retornar respostas em requisições web
 		
 		List<Order> list = service.findAll();
@@ -47,7 +52,7 @@ public class OrderResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PostMapping()//->Indicar que esse vai ser um método para inserir algo do http
+	@PostMapping(value = "salvar")//->Indicar que esse vai ser um método para inserir algo do http
 	public ResponseEntity<Order> insert(@RequestBody Order obj){
 		//@RequestBody-> Indicar que o Order obj vai chegar em formato Json na hora da requisição e vai ser deserializado para um obj Order
 		

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Pagina de Usuários</title>
+<title>Pagina de Produtos</title>
 <link rel="stylesheet" type="text/css" href="/css/entidades.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -18,15 +18,15 @@
 	<main>
 		<header>
 			<div>
-				<h1>Usuários | VH</h1>
+				<h1>Produtos | VH</h1>
 			</div>
 
 			<nav>
 				<ul>
 					<li><a href="/">Home</a></li>
-					<li><a href="#usuarios">Usuários</a></li>
+					<li><a href="/users">Usuários</a></li>
 					<li><a href="/orders">Pedidos</a></li>
-					<li><a href="/products">Produtos</a></li>
+					<li><a href="#products">Produtos</a></li>
 					<li><a href="/categories">Categorias</a></li>
 					<li><a href="#sobre">Sobre</a></li>
 				</ul>
@@ -34,23 +34,22 @@
 		</header>
 
 		<div id="form-div">
-			<form id="formCadastroUser" action="" method="post">
-				<h2 id="titulo-form">Cadastrar Usuário</h2>
+			<form id="formCadastroProduct" action="" method="post">
+				<h2 id="titulo-form">Cadastrar Produto</h2>
 				<input type="text" form="form-control" id="id" readonly="readonly"placeholder="  ID"> 
 				<input type="text" form="form-control" id="name" required placeholder="  Nome"> 
-				<input type="email" form="form-control" id="email" required placeholder="  E-mail"> 
-				<input type="text" form="form-control" id="phone" required placeholder="  Telefone">
-				<input type="text" form="form-control" id="password" required placeholder="  Senha">
+				<input type="text" form="form-control" id="description" required placeholder="  Descrição">
+				<input type="text" form="form-control" id="price" required placeholder="  Preço">
 					
 				<div id="buttons-form">
-					<button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
+					<button type="button" class="btn btn-primary" onclick="salvarProduto()">Salvar</button>
 					<button id="novo" type="button" class="btn btn-secondary" onclick="limparForm()">Limpar</button>
 				</div>
 			</form>
 		</div>
 
 		<div id="menu-db">
-			<input id="bt-listar" type="button" value="Listar Usuários" onclick="clickListarTodos()"> 
+			<input id="bt-listar" type="button" value="Listar Produtos" onclick="clickListarTodos()"> 
 			<a href="#nada"><input type="button" value="Nada"></a>
 		</div>
 
@@ -63,14 +62,13 @@
 							<tr>
 								<th scope="col">ID</th>
 								<th scope="col">Nome</th>
-								<th scope="col">E-mail</th>
-								<th scope="col">Telefone</th>
-								<th scope="col">Senha</th>
+								<th scope="col">Descrição</th>
+								<th scope="col">Preço</th>
 								<th scope="col">Editar</th>
 							</tr>
 						</thead>
 						<tbody>
-
+						
 						</tbody>
 					</table>
 				</div>
@@ -101,6 +99,7 @@
 			</div>
 		</div>
 	</main>
+	
 
 	<script type="text/javascript">
 		function setDef() {
@@ -109,10 +108,9 @@
 		function limparForm(){
 			$("#id").val("");
 			$("#name").val("");
-			$("#email").val("");
-			$("#phone").val("");
-			$("#password").val("");
-			document.getElementById('titulo-form').innerText = ' Cadastrar Usuário';
+			$("#description").val("");
+			$("#price").val("");
+			document.getElementById('titulo-form').innerText = ' Cadastrar Produto';
 			document.getElementById('titulo-form').style.color= 'black';
 		}
 		function closeModal() {
@@ -130,7 +128,9 @@
 			document.getElementById('lista-modal').style.transition = '400ms';
 			document.getElementById('lista-modal').style.transform = 'translatey(-20px)';
 			listarTodos();
+			
 		}
+	
 	</script>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -138,70 +138,64 @@
 		crossorigin="anonymous"></script>
 		
 	<script type="text/javascript">
-		function salvarUsuario() {
-			
+		function salvarProduto(){
 			var id = $("#id").val();
 			var name = $("#name").val();
-			var email = $("#email").val();
-			var phone = $("#phone").val();
-			var password = $("#password").val();
+			var description = $("#description").val();
+			var price = $("#price").val();
 			
 			if(id != null)
 				document.getElementById('titulo-form').innerText = ' Cadastrar Usuário';
 			document.getElementById('titulo-form').style.color= 'black';
 
-			if (name == "" || email == "" || phone == "" || password == "") {
-				alert("Campos (Nome, E-mail, Telefone, Senha) devem ser preenchidos!")
+			if (name == "" || price == "") {
+				alert("Campos (Nome, Preço) devem ser preenchidos!")
 
 			} else {
 				$.ajax({
 
 					method : "POST",
 
-					url : "users/salvar",
+					url : "products/salvar",
 
 					data : JSON.stringify({
 						id : id,
 						name : name,
-						email : email,
-						phone : phone,
-						password : password
+						description : description,
+						price : price,
 					}),
 
 					contentType : "application/json; charset=utf-8",
 
 					success : function(response) {
-
-						$("#id").val(response.id);
-						alert("Usuário salvo com sucesso!");
+						alert("Produto salvo com sucesso!");
 					}
 
 				}).fail(function(xhr, status, errorThrow) {
-					alert("Erro ao salvar usuário: " + xhr.responseText);
+					alert("Erro ao salvar produto: " + xhr.responseText);
 				});
 			}
-
 		}
 
-		function excluirUsuario(id) {
+		function excluirProduto(id) {
 			$.ajax({
 				method : "DELETE",
-				url : "users/excluir",
+				url : "products/excluir",
 				data : "id=" + id,
 				success : function(response) {
-					alert(response);
+
 					listarTodos();
 				}
 			}).fail(function(xhr, status, errorThrow) {
-				alert("Erro ao excluir usuário: " + xhr.responseText);
+				alert("Erro ao excluir produto: " + xhr.responseText);
 			});
 
 		}
 		
-		function editarUsuario(id){
+		function editarProduto(id){
 			$.ajax({
 				method : "GET",
-				url : "users/encontrarPorId",
+				url : "products/encontrarPorId",
 				data : "id=" + id,
 				success : function(response) {
 					document.getElementById('titulo-form').innerText = ' Alterar Dados';
@@ -209,23 +203,22 @@
 					
 					$("#id").val(response.id);
 					$("#name").val(response.name);
-					$("#email").val(response.email);
-					$("#phone").val(response.phone);
-					$("#password").val(response.password);
+					$("#description").val(response.description);
+					$("#price").val(response.price);
 					
 					closeModal();
 				}
 			}).fail(function(xhr, status, errorThrow) {
-				alert("Erro ao salvar usuário: " + xhr.responseText);
+				alert("Erro ao salvar produto: " + xhr.responseText);
 			});
 		}
 		
-		function listarTodos() {
+		function listarTodos(){
 			$.ajax({
 
 					method : "GET",
-
-					url : "users/listarTodos",
+					
+					url : "products/listarTodos",
 
 					success : function(response) {
 
@@ -233,16 +226,15 @@
 
 						for (var i = 0; i < response.length; i++) {
 							$('#tabela-result > tbody').append(
-								'<tr>'
+									'<tr>'
 										+ '<td>'+ response[i].id+ '</td>'
 										+ '<td>'+ response[i].name +'</td>'
-										+ '<td>'+ response[i].email +'</td>'
-										+ '<td>'+ response[i].phone +'</td>'
-										+ '<td>'+ response[i].password +'</td>'
+										+ '<td>'+ response[i].description +'</td>'
+										+ '<td>'+ response[i].price +'</td>'
 										+ '<td>'
 											+'<div class="bt-table">'
-												+'<button class="btn btn-primary" onclick="editarUsuario('+ response[i].id +')">Editar</button>'
-												+'<button class="btn btn-primary" id="bt-excluir" onclick="excluirUsuario('+ response[i].id +')">Excluir</button>'
+												+'<button class="btn btn-primary" onclick="editarProduto('+ response[i].id +')">Editar</button>'
+												+'<button class="btn btn-primary" id="bt-excluir" onclick="excluirProduto('+ response[i].id +')">Excluir</button>'
 											+'</div>'
 										+'</td>'
 								+'</tr>');
@@ -253,6 +245,7 @@
 							alert("Erro ao listar usuários: " + xhr.responseText);
 						});
 		}
+		
 	</script>
 
 </body>

@@ -1,9 +1,7 @@
 package com.myproject.demo.config;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -66,26 +64,26 @@ public class TestConfig implements CommandLineRunner{
 		User u1 = new User(null, "Victor Almeida", "victorh.almeida7@gmail.com", "999999999", "123456");
 		User u2 = new User(null, "Gabrielly Silva", "gabiiSilva@gmail.com", "999999999", "123456");
 		
-		String strEmail = "@teste";
-		List<User> list = new ArrayList<>();
-		
-		for(int i=0; i<25; i++) {
-			String str = "teste";
-			str += String.valueOf(i);
-			String email = str + strEmail;
-			String telefone = "99999999999";
-			String senha = "teste1234567";
-			User u = new User(null, str, email, telefone, senha);
-			list.add(u);
-		}
-		
-		userService.saveAll(list);
+//		String strEmail = "@teste";
+//		List<User> list = new ArrayList<>();
+//		
+//		for(int i=0; i<25; i++) {
+//			String str = "teste";
+//			str += String.valueOf(i);
+//			String email = str + strEmail;
+//			String telefone = "99999999999";
+//			String senha = "teste1234567";
+//			User u = new User(null, str, email, telefone, senha);
+//			list.add(u);
+//		}
+//		
+//		userService.saveAll(list);
 		userService.saveAll(Arrays.asList(u1, u2));
 		
 		// Horario no padrão UTC
-		Order o1 = new Order(null, Instant.parse("2022-01-25T13:10:00Z"), OrderStatus.PAID, u1);
-		Order o2 = new Order(null, Instant.parse("2022-01-25T14:20:50Z"), OrderStatus.WAITING_PAYMENT, u2);
-		Order o3 = new Order(null, Instant.parse("2022-01-27T16:35:10Z"), OrderStatus.WAITING_PAYMENT, u1);
+		Order o1 = new Order(null, Instant.parse("2022-01-25T13:10:00Z"), OrderStatus.valueOf(2), u1);
+		Order o2 = new Order(null, Instant.parse("2022-01-25T14:20:50Z"), OrderStatus.valueOf(1), u2);
+		Order o3 = new Order(null, Instant.now() , OrderStatus.valueOf(1), u1);
 		
 		
 		orderService.saveAll(Arrays.asList(o1, o2, o3));

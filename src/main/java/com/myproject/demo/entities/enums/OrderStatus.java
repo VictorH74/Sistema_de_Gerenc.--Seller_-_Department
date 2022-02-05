@@ -2,11 +2,11 @@ package com.myproject.demo.entities.enums;
 
 public enum OrderStatus {
 
-	WAITING_PAYMENT(1),
-	PAID(2),
-	SHIPPED(3),
-	DELIVERED(4),
-	CANCELED(5);
+	ESPERANDO_PAGAMENTO(1),
+	PAGO(2),
+	ENVIADO(3),
+	ENTREGUE(4),
+	CANCELADO(5);
 	
 	private int code;
 	
