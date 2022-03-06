@@ -40,7 +40,7 @@ public class UserResource {
 		return "usuarios";
 	}
 
-	@GetMapping(value = "/listarTodos") //->Indicar que esse vai ser um método request do http / Solicitar algo
+	@GetMapping(value = "listarTodos") //->Indicar que esse vai ser um método request do http / Solicitar algo
 	@ResponseBody
 	public ResponseEntity<List<User>> listarTodos(){
 	// ResponseEntity<T> -> Tipo especifico do Spring para retornar respostas em requisições web

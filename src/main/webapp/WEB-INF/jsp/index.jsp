@@ -1,54 +1,77 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import= "java.text.SimpleDateFormat" %>
-<%@ page import= "java.util.Date" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Pagina de Usu√°rios</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    	<link href="/css/index.css" rel="stylesheet" type="text/css" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pagina Inicial</title>
+    	<link href="/css/entidades.css" rel="stylesheet" type="text/css" >
+    	<style>
+    		main{
+	            padding-left: 5em;
+	            align-items: center;
+        	}
+        	main h2{
+	            border-left: 30px double rgba(20, 20, 20, 0.712);
+	            color: rgba(20, 20, 20, 0.712);
+	            font-size: 20em;
+	            letter-spacing: 50px;
+        	}
+
+       	 	@media(max-width: 500px){
+            	.container{
+                	height: 100vh;
+           		}
+            	main{
+                	padding-left: 2em;
+            	}
+            	main h2{
+	                margin-top: 1em;
+	                font-size: 5em;
+	                letter-spacing: 4px;
+            	}
+        	}
+    	</style>
     </head>
     
     <body>
+        <div class="container">
+        <header>
+            <div class="logo">
+                <h1>Home | VH</h1>
+            </div>
+            
+            <nav>
+                <ul class="menu">
+                    <li><a href="/" id="current-page">Home</a></li>
+                    <li><a href="/users">Usu·rios</a></li>
+                    <li><a href="/orders">Pedidos</a></li>
+                    <li><a href="/products">Produtos</a></li>
+                    <li><a href="/categories">Categorias</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                </ul>
+            </nav>
+        </header>
+
         <main>
-            <header>
-                <div>
-                    <h1>My Project | VH</h1>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#Home">Home</a></li>
-                        <li><a href="users">Usu√°rios</a></li>
-                        <li><a href="/orders">Pedidos</a></li>
-						<li><a href="/products">Produtos</a></li>
-						<li><a href="/categories">Categorias</a></li>
-						<li><a href="#sobre">Sobre</a></li>
-                    </ul>
-                </nav>
-            </header>
-            <% SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); %>
-            <h2><%= sdf.format(new Date()) %></h2>
-                  	
-            </div>
-            <div id="sobre" class="modal-c">
-                <div id="sobre-div" class="modal-padrao">
-                    <a href="#" title="Close" class="close">X</a>
-                    <hr>
-                    <div>
-                        <h1>Web Application Demo</h1>
-                        <p>Essa √© apenas uma aplica√ß√£o web b√°sica feito em JAVA com Spring Boot</p> 
-                    </div>
-                    
-                </div>   
-            </div>
-
-            <footer>
-
-            </footer>
+        <%= "<h2>Hello!</h2>" %>
         </main>
-        
+    </div>
+
+    <div id="sobre" class="modal-c">
+        <div id="sobre-div" class="modal-padrao">
+            <a href="#" title="Close" class="close">X</a>
+            <hr>
+            <div>
+                <h1>Web Application Demo</h1>
+                <p>Essa È apenas uma aplicaÁ„o web b·sica feito em JAVA com
+                    Spring Boot</p>
+            </div>
+
+        </div>
+    </div>
     </body>
 </html>
