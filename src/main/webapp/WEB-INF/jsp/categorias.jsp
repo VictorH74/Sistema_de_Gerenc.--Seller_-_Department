@@ -131,7 +131,7 @@
 				document.getElementById('titulo-form').style.color= 'black';
 	
 				if (name == "") {
-					alert("Campo (Nome) devem ser preenchidos!")
+					alert("Campo (Nome) deve ser preenchido!")
 	
 				} else {
 					$.ajax({
